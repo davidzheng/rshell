@@ -36,6 +36,8 @@ bool checkForConnector(char* rawCommand){
     return false;
 }
 
+void makeTree(deque<char*> fixedCommandList);
+
 deque<char*> parse(string userCommands){
     if(userCommands == "exit"){ // Exits if userCommands is exit
         exit(0);
@@ -81,6 +83,7 @@ deque<char*> parse(string userCommands){
     }
     return fixedCommandList;
 }
+
 
 int main(){
     while(true){
