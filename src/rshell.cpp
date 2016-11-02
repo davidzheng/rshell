@@ -23,12 +23,12 @@ void printUserInfo(){
     return;
 }
 
-bool checkForConnector(char* rawCommand){
+bool checkForConnector(char* rawCommand){ // Populates and vector with connector strings and compares it to the input
     vector<string>connectors;
     connectors.push_back("&&");
     connectors.push_back("||");
     connectors.push_back(";");
-    for(unsigned int i = 0; i < 3; ++i){
+    for(unsigned int i = 0; i < 3; ++i){ // Returns true if a connector string is present in input
         if(rawCommand == connectors.at(i)){
             return true;
         }
@@ -36,7 +36,78 @@ bool checkForConnector(char* rawCommand){
     return false;
 }
 
-void makeTree(deque<char*> fixedCommandList);
+bool checkForFlag(char* rawCommand){ // Returns true if a flag is pressent in the token
+    if(strchr(rawCommand, '-') != NULL){
+        return true;
+    }
+    return false;
+}
+
+void makeTree(deque<char*> fixedCommandList){
+    deque<Commands*> commandsParsed;
+    deque<char*> connectorsParsed;
+    deque<Connector*> commandTree;
+    
+    while(!fixedCommandList.empty()){
+        char* tempToken = fixedCommandList.front();
+        fixedCommandList.pop_front();
+        Command* newCommand = new Command(tempToken);
+        while(!checkForConnector(fixedCommandList.front())){
+            tempToken = fixedCommandList.front();
+            newCommand->addFlag(tempToken);
+            fixedCommandList.pop_front();            
+        }
+        commandsParsed.push_back(newCommand);
+        if(checkForConnector(fixedCommandList.front())){
+            tempToken = fixedCommandList.front();
+            fixedCommandList.pop_front();
+            connectorsParsed.push_back(tempToken);
+        }
+    }/*
+    if(!connectorsParsed.empty()){
+        Connector* leftBase = new Command(commandsParsed.front());
+        commandsParsed.pop_front();
+        while(checkForFlag(commandsParsed.front()){
+            char* temp = commandsParsed.front();
+            commandsParsed.pop_front();
+            memmove(temp, temp + 1, strlen(temp));
+            leftBase->addFlag(temp);
+        }
+        Connector* rightBase = new Command(commandsParsed.front());
+        commandsParsed.pop_front();
+        while(checkForFlag(commandsParsed.front()){
+            char* temp = commandsParsed.front();
+            commandsParsed.pop_front();
+            memmove(temp, temp + 1, strlen(temp));
+            rightBase->addFlag(temp);
+        }
+        char* tempConnector = connectorsParsed.front();
+        connectorsParse.pop_front();
+        if(strstr(tempConnector, "&&") != NULL){
+            logicalAND* newLogicalAND = new logicalAND(leftBase, rightBase);
+            commandTree.push_back(newLogicalAND);
+        }
+        else if(strstr(tempCOnnector, "||") != NULL){
+            logicalOR* newLogicalOR = new logicalOR(leftBase, rightBase);
+            commandTree.push_back(newLogicalOR);
+        }
+        else{
+            semicolonCommand newSemicolon = new semicolonCommand(leftBase, rightBase);
+            commandTree.push_back(newSemicolon);
+        }
+                
+        while(!connectorsParsed.empty){
+            Base* newLeftBase = commandTree.back();
+            Base* newRightBase = commandsParsed.front();
+            while(checkForFlag(commandsParsed.front()){
+                char* temp = commandsParsed.front();
+                commandsParsed.pop_front();
+                memmove(temp, temp + 1, strlen(temp));
+                newRightBase.addFlag(temp);
+            }
+
+        }*/        
+}
 
 deque<char*> parse(string userCommands){
     if(userCommands == "exit"){ // Exits if userCommands is exit
@@ -58,14 +129,14 @@ deque<char*> parse(string userCommands){
     while(!rawCommandList.empty()){
         //cout << rawCommandList.front() << endl;
         char* currentToken = rawCommandList.front();
-        if(strchr(currentToken, '#') != NULL){
-        for(int i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
-        cout << fixedCommandList.at(i) << endl;
-        }
+        if(strchr(currentToken, '#') != NULL){ // If a comment exists, ignore the reset of user input during parsing
+            for(int i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
+                cout << fixedCommandList.at(i) << endl;
+            }
             return fixedCommandList;
         }       
         rawCommandList.pop_front();
-        if(strchr(currentToken, ';') != NULL){
+        if(strchr(currentToken, ';') != NULL){ 
             string temp = currentToken;
             temp = temp.substr(0, temp.size() - 1);
             strcpy(currentToken, temp.c_str());
@@ -79,7 +150,7 @@ deque<char*> parse(string userCommands){
     }
     //cout << "Fixed CMD list" << endl;
     for(int i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
-        cout << fixedCommandList.at(i) << endl;
+        cout << fixedCommandList.at(i);// << endl;
     }
     return fixedCommandList;
 }
