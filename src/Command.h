@@ -15,4 +15,5 @@ class Command: public Base{
         Command(deque<char*>cmdFlags);
         Command(char* cmdName, deque<char*>cmdFlags);
         virtual bool runCommand();
+        void addFlag(char* commandFlag);
 };
