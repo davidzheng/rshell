@@ -20,7 +20,27 @@ void printUserInfo(){
     return;
 }
 
+void parse(string userCommands){
+    if(userCommands == "exit"){ // Exits if userCommands is exit
+        exit(0);
+    }
+    char* c_userCommands = new char[userCommands.length() + 1]; // Creates a c string for strtok and sets it to userCommand
+    strcpy(c_userCommands, userCommands.c_str()); 
+    
+    char* token = strtok(c_userCommands, " ");
+    while(token != NULL){
+        cout << token << endl;
+        token = strtok(NULL, " ");
+    }
+    return;
+}
+
 int main(){
-    printUserInfo();
+    while(true){
+        printUserInfo();
+        string userCommands;
+        getline(cin, userCommands);
+        parse(userCommands);
+    }
     return 1;
 }
