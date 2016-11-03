@@ -56,7 +56,7 @@ bool checkForFlag(char* rawCommand){ // Returns true if a flag is pressent in th
     return false;
 }
 
-Connector*  makeTree(deque<char*> fixedCommandList){
+Base*  makeTree(deque<char*> fixedCommandList){
     deque<Command*> commandsParsed;
     deque<char*> connectorsParsed;
     deque<Connector* > commandTree;
@@ -152,6 +152,11 @@ Connector*  makeTree(deque<char*> fixedCommandList){
             }
         }
     }
+    else{
+        return commandsParsed.front();
+    }
+    
+        
     if(commandsParsed.size() != 0){
         perror("invalid number of commands and connectors");
     }
@@ -220,7 +225,8 @@ int main(){
         for(int i = 0; i < temp.size(); ++i){
                 cout << temp.at(i) << endl;
         }*/
-        Connector* cmdTree = makeTree(temp);
+        Base* cmdTree = makeTree(temp);
+        cmdTree->runCommand();
     }
     return 1;
 }
