@@ -12,6 +12,11 @@ semiColon::semiColon(Base* leftChild, Base* rightChild){
 }
 
 bool semiColon::runCommand(){
-    //fixme
-    return false;
+    leftChild->runCommand();
+    if(rightChild->runCommand()){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
