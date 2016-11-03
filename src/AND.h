@@ -1,17 +1,18 @@
 #ifndef __AND_H__
 #define __AND_H__
 
-#include "Base.h"
+#include "Connector.h"
+#include "AND.h"
 using namespace std;
 
-class AND: public Base{
+class AND: public Connector{
     protected:
         Base* leftChild;
         Base* rightChild;
     public:
         AND();
         AND(Base* leftChild, Base* rightChild);
-        virtual bool runCommand() = 0;
+        virtual bool runCommand();
 };
 
 #endif

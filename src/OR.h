@@ -1,18 +1,19 @@
 #ifndef __OR_H__
 #define __OR_H__
 
-#include "Base.h"
+#include "Connector.h"
+#include "OR.h"
 
 using namespace std;
 
-class OR: public Base{
+class OR: public Connector{
     protected:
         Base* leftChild;
         Base* rightChild;
     public:
         OR();
         OR(Base* leftChild, Base* rightChild);
-        virtual bool runCommand() = 0;
+        virtual bool runCommand();
 };
 
 #endif
