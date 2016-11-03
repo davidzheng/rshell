@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include <unistd.h>
 #include <cstdio>
 #include <string>
@@ -194,7 +195,7 @@ deque<char*> parse(string userCommands){
         //cout << rawCommandList.front() << endl;
         char* currentToken = rawCommandList.front();
         if(strchr(currentToken, '#') != NULL){ // If a comment exists, ignore the reset of user input during parsing
-            for(int i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
+            for(unsigned i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
                 cout << fixedCommandList.at(i) << endl;
             }
             return fixedCommandList;
