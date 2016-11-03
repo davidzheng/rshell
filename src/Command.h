@@ -19,5 +19,4 @@ class Command: public Base{
         void printCommand();
         void printFlags();
 };
-
 #endif
