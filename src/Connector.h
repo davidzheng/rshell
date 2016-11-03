@@ -2,6 +2,7 @@
 #define __CONNECTOR_H__
 
 #include "Base.h"
+
 using namespace std;
 
 class Connector: public Base{

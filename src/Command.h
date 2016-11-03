@@ -17,3 +17,4 @@ class Command: public Base{
         virtual bool runCommand();
         void addFlag(char* commandFlag);
 };
+#endif
