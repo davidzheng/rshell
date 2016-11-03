@@ -2,6 +2,7 @@
 #define __COMMAND_CPP__
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
 #include <string>
 #include <deque>
@@ -80,7 +81,7 @@ void Command::printCommand(){
 }
 
 void Command::printFlags(){
-    for(int i = 0; i < this->commandFlags.size(); ++i){
+    for(unsigned i = 0; i < this->commandFlags.size(); ++i){
         cout << commandFlags.at(i) << "    ";
     }
     cout << endl;
