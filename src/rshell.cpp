@@ -11,6 +11,7 @@
 #include "AND.h"
 #include "OR.h"
 #include "semiColon.h"
+#include "Exit.h"
 
 using namespace std;
 
@@ -120,14 +121,17 @@ Base*  makeTree(deque<char*> fixedCommandList){
         char* tempConnector = connectorsParsed.front();
         connectorsParsed.pop_front();
         if(strstr(tempConnector, "&&") != NULL){
+            //cout << "AND" << endl;
             AND* newAND = new AND(leftBase, rightBase);
             commandTree.push_back(newAND);
         }
         else if(strstr(tempConnector, "||") != NULL){
+            //cout << "OR" << endl;
             OR* newOR = new OR(leftBase, rightBase);
             commandTree.push_back(newOR);
         }
         else{
+            //cout << "SEMI" << endl;
             semiColon*  newSemicolon = new semiColon(leftBase, rightBase);
             commandTree.push_back(newSemicolon);
         }
@@ -139,14 +143,17 @@ Base*  makeTree(deque<char*> fixedCommandList){
             char* tmpConnector = connectorsParsed.front();
             connectorsParsed.pop_front();
             if(strstr(tmpConnector, "&&") != NULL){
+                //cout << "AND" << endl;
                 AND* newAND = new AND(newLeftBase, newRightBase);
                 commandTree.push_back(newAND);
             }
             else if(strstr(tmpConnector, "||") != NULL){
+                //cout << "OR" << endl;
                 OR* newOR = new OR(newLeftBase, newRightBase);
                 commandTree.push_back(newOR);
             }
             else{
+                //cout << "semiColon" << endl;
                 semiColon* newSemicolon = new semiColon(leftBase, rightBase);
                 commandTree.push_back(newSemicolon);
             }
@@ -155,7 +162,6 @@ Base*  makeTree(deque<char*> fixedCommandList){
     else{
         return commandsParsed.front();
     }
-    
         
     if(commandsParsed.size() != 0){
         perror("invalid number of commands and connectors");
@@ -168,7 +174,8 @@ Base*  makeTree(deque<char*> fixedCommandList){
 
 deque<char*> parse(string userCommands){
     if(userCommands == "exit"){ // Exits if userCommands is exit
-        exit(0);
+        Exit* newExit = new Exit();
+        newExit->runCommand();
     }
     char* c_userCommands = new char[userCommands.length() + 1]; // Creates a c string for strtok and sets it to userCommand
     strcpy(c_userCommands, userCommands.c_str()); 

@@ -1,3 +1,6 @@
+#ifndef __OR_CPP__
+#define __OR_CPP__
+
 #include <iostream>
 #include "Base.h"
 #include "OR.h"
@@ -14,7 +17,7 @@ OR::OR(Base* leftChild, Base* rightChild){
 
 bool OR::runCommand(){
     if(leftChild->runCommand() == false){
-	if(rightChild->runCommand() == true){
+	    if(rightChild->runCommand() == true){
             return true;
         }
         else{
@@ -23,4 +26,5 @@ bool OR::runCommand(){
     }
     return true;
 }
-               
+
+#endif

@@ -46,6 +46,7 @@ bool Command::runCommand(){
         commandFlags.pop_front();
         ++i;
     }
+    argv[i] = NULL;
 
 
     int pid = fork();
@@ -66,11 +67,11 @@ bool Command::runCommand(){
         if(waitpid(pid, &status, 0) == -1){ // Waitpid forces parent to wait for child in order to stop zombie processes. 
             perror("problem with waitpid"); // A return value of negative 1 indicates that waitpid was unsuccessful
         }
-        if(WIFEXITED(status)){ // Was child terminated normally?
+      //  if(WIFEXITED(status)){ // Was child terminated normally?
             if(WEXITSTATUS(status) != 0){ // If exit status is not zero, set the bool of runCommand to be false.
                 result = false;
             }
-        }
+       // }
     }
     return result;
 }
