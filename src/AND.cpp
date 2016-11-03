@@ -12,6 +12,12 @@ AND::AND(Base* leftChild, Base* rightChild){
 }
 
 bool AND::runCommand(){
-    //fixme
+    if(leftChild->runCommand() == true)
+    {
+        if(rightChild->runCommand() == true)
+        {
+            return true;
+        }
+    } 
     return false;
 }

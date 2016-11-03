@@ -13,7 +13,14 @@ OR::OR(Base* leftChild, Base* rightChild){
 
 
 bool OR::runCommand(){
-    //fixme
-    return false;
+    if(leftChild->runCommand() == false){
+	if(rightChild->runCommand() == true){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    return true;
 }
                
