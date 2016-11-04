@@ -12,7 +12,7 @@
 #include "AND.h"
 #include "OR.h"
 #include "semiColon.h"
-#include "Exit.h"
+//#include "Exit.h"
 
 using namespace std;
 
@@ -51,14 +51,7 @@ bool checkForSemi(char* rawCommand){
     return false;
 }
 
-bool checkForFlag(char* rawCommand){ // Returns true if a flag is pressent in the token
-    if(strchr(rawCommand, '-') != NULL){
-        return true;
-    }
-    return false;
-}
-
-Base*  makeTree(deque<char*> fixedCommandList){
+Base* makeTree(deque<char*> fixedCommandList){
     deque<Command*> commandsParsed;
     deque<char*> connectorsParsed;
     deque<Connector* > commandTree;
@@ -104,60 +97,57 @@ Base*  makeTree(deque<char*> fixedCommandList){
             connectorsParsed.push_back(tempToken);
         }
     }
-    /*cout << "DONE" << endl;
     for(int i = 0; i < commandsParsed.size(); ++i){
         commandsParsed.at(i)->printCommand();
-        commandsParsed.at(i)->printFlags();
     }
-    for(int i = 0; i < connectorsParsed.size(); ++i){
-            cout << connectorsParsed.at(i) << endl;
-    }*/
-
-    
+    cout << connectorsParsed.size() << endl;
     if(!connectorsParsed.empty()){
-        Command* leftBase = commandsParsed.front();
+        for(int i = 0; i < commandsParsed.size(); ++i){
+            commandsParsed.at(i)->printCommand();
+        }
+        Base* leftBase = commandsParsed.front();
         commandsParsed.pop_front();
-        Command* rightBase = commandsParsed.front();
+        Base* rightBase = commandsParsed.front();
         commandsParsed.pop_front();
+        rightBase->printCommand();
         char* tempConnector = connectorsParsed.front();
         connectorsParsed.pop_front();
         if(strstr(tempConnector, "&&") != NULL){
-            //cout << "AND" << endl;
             AND* newAND = new AND(leftBase, rightBase);
             commandTree.push_back(newAND);
         }
         else if(strstr(tempConnector, "||") != NULL){
-            //cout << "OR" << endl;
             OR* newOR = new OR(leftBase, rightBase);
             commandTree.push_back(newOR);
         }
         else{
-            //cout << "SEMI" << endl;
             semiColon*  newSemicolon = new semiColon(leftBase, rightBase);
             commandTree.push_back(newSemicolon);
-        }
-                
+        }        
         while(!connectorsParsed.empty()){
-            Base* newLeftBase = commandTree.back();
+            cout << "CONNECTER AND COMMAND" << endl;
+        //    commandTree.front()->printCommand();
+            Base* newLeftBase = commandTree.front();
+            //newLeftBase->printCommand();
+            commandTree.pop_front();
+        //    commandsParsed.front()->printCommand();
             Base* newRightBase = commandsParsed.front();
             commandsParsed.pop_front();
             char* tmpConnector = connectorsParsed.front();
             connectorsParsed.pop_front();
             if(strstr(tmpConnector, "&&") != NULL){
-                //cout << "AND" << endl;
                 AND* newAND = new AND(newLeftBase, newRightBase);
                 commandTree.push_back(newAND);
             }
             else if(strstr(tmpConnector, "||") != NULL){
-                //cout << "OR" << endl;
                 OR* newOR = new OR(newLeftBase, newRightBase);
                 commandTree.push_back(newOR);
             }
             else{
-                //cout << "semiColon" << endl;
                 semiColon* newSemicolon = new semiColon(leftBase, rightBase);
                 commandTree.push_back(newSemicolon);
             }
+      //      commandTree.back()->printCommand();
         }
     }
     else{
@@ -168,6 +158,9 @@ Base*  makeTree(deque<char*> fixedCommandList){
         perror("invalid number of commands and connectors");
     }
     else{
+        cout << "DONE TREE" << endl;
+        cout << commandTree.size() << endl;
+        //commandTree.back()->printCommand();
         return commandTree.back();
     }
     return NULL;    
@@ -175,8 +168,7 @@ Base*  makeTree(deque<char*> fixedCommandList){
 
 deque<char*> parse(string userCommands){
     if(userCommands == "exit"){ // Exits if userCommands is exit
-        Exit* newExit = new Exit();
-        newExit->runCommand();
+        exit(1);
     }
     char* c_userCommands = new char[userCommands.length() + 1]; // Creates a c string for strtok and sets it to userCommand
     strcpy(c_userCommands, userCommands.c_str()); 
@@ -187,12 +179,8 @@ deque<char*> parse(string userCommands){
         rawCommandList.push_back(token);
         token = strtok(NULL, " ");
     }
-    /*for(int i = 0; i < rawCommandList.size(); ++i){ // For testing purposes
-        cout << rawCommandList.at(i) << endl;
-    }*/
-    deque<char*>fixedCommandList; // Command list post handling
+    deque<char*>fixedCommandList; // Command list comment handling
     while(!rawCommandList.empty()){
-        //cout << rawCommandList.front() << endl;
         char* currentToken = rawCommandList.front();
         if(strchr(currentToken, '#') != NULL){ // If a comment exists, ignore the reset of user input during parsing
             for(unsigned i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
@@ -201,24 +189,8 @@ deque<char*> parse(string userCommands){
             return fixedCommandList;
         }       
         rawCommandList.pop_front();
-        /*if(strchr(currentToken, ';') != NULL){ 
-            string temp = currentToken;
-            temp = temp.substr(0, temp.size() - 1);
-            strcpy(currentToken, temp.c_str());
-            char semicolonChar[] = ";";
-            char* semicolonArray = semicolonChar;
-            fixedCommandList.push_back(currentToken);
-            fixedCommandList.push_back(semicolonArray);
-        }
-        else{
-            fixedCommandList.push_back(currentToken);
-        }*/
         fixedCommandList.push_back(currentToken);
     }
-   /* cout << "Fixed CMD list" << endl;
-    for(int i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
-        cout << fixedCommandList.at(i) << endl;
-    }*/
     return fixedCommandList;
 }
 
@@ -229,10 +201,6 @@ int main(){
         string userCommands;
         getline(cin, userCommands);
         deque<char*> temp = parse(userCommands);
-        /*cout << "AFTER PARSE:" << endl;
-        for(int i = 0; i < temp.size(); ++i){
-                cout << temp.at(i) << endl;
-        }*/
         Base* cmdTree = makeTree(temp);
         cmdTree->runCommand();
     }

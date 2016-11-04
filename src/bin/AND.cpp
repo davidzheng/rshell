@@ -12,12 +12,16 @@ AND::AND(Base* leftChild, Base* rightChild){
 }
 
 bool AND::runCommand(){
+    if(rightChild == NULL){
+        cout <<" RIGHT NULL" << endl;
+    }
     if(leftChild->runCommand() == true)
     {
         if(rightChild->runCommand() == true)
         {
             return true;
         }
-    } 
+    }
     return false;
 }
+

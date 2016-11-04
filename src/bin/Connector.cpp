@@ -11,8 +11,6 @@ Connector::Connector(Base* leftChild, Base* rightChild){
     this->rightChild = rightChild;
 }
 
-bool Connector::runCommand(){
-    //fixme
-    return false;
+void Connector::printCommand(){
+    rightChild->printCommand();
 }
-

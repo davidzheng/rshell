@@ -12,7 +12,8 @@ class Connector: public Base{
     public:
         Connector();
         Connector(Base* leftChild, Base* rightChild);
-        virtual bool runCommand() = 0;        
+        virtual bool runCommand() = 0;       
+        void printCommand();
 };
 
 #endif

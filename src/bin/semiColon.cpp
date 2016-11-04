@@ -13,7 +13,7 @@ semiColon::semiColon(Base* leftChild, Base* rightChild){
 
 bool semiColon::runCommand(){
     leftChild->runCommand();
-    if(rightChild->runCommand()){
+    if(rightChild->runCommand() == true){
         return true;
     }
     else{
