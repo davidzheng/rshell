@@ -1,3 +1,6 @@
+#ifndef __SEMICOLON_CPP__
+#define __SEMICOLON_CPP__
+
 #include <iostream>
 #include "Base.h"
 #include "semiColon.h"
@@ -22,3 +25,4 @@ bool semiColon::runCommand(){
         return false;
     }
 }
+#endif
