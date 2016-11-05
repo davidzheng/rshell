@@ -6,6 +6,7 @@
 #include "AND.h"
 using namespace std;
 
+// Constructors
 AND::AND() {}
 
 AND::AND(Base* leftChild, Base* rightChild){
@@ -13,11 +14,10 @@ AND::AND(Base* leftChild, Base* rightChild){
     this->rightChild = rightChild;
 }
 
-bool AND::runCommand(){
-    if(leftChild->runCommand() == true)
-    {
-        if(rightChild->runCommand() == true)
-        {
+// Member functions
+bool AND::runCommand(){ 
+    if(leftChild->runCommand() == true){ // Calls runCommand() on right child if the left child returned true
+        if(rightChild->runCommand() == true){ // If right child returns true, AND::runCommand() should return true. Else, return false.
             return true;
         }
     }

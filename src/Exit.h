@@ -6,7 +6,10 @@ using namespace std;
 
 class Exit: public Command{
     public:
+        // Constructors
         Exit();
+        // Member functions
         bool runCommand();
 };
+
 #endif

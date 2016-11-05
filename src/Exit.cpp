@@ -6,9 +6,12 @@
 #include "Exit.h"
 using namespace std;
 
+// Constructors
 Exit::Exit(){}
 
-bool Exit::runCommand(){
+// Member funcions
+bool Exit::runCommand(){ // Simply exits the program
     exit(0);
 }
+
 #endif    

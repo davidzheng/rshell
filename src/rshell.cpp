@@ -173,9 +173,9 @@ deque<char*> parse(string userCommands){
     while(!rawCommandList.empty()){
         char* currentToken = rawCommandList.front();
         if(strchr(currentToken, '#') != NULL){ // If a comment exists, ignore the reset of user input during parsing
-            for(unsigned i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
+            /*for(unsigned i = 0; i < fixedCommandList.size(); ++i){ // For testing purposes
                 cout << fixedCommandList.at(i) << endl;
-            }
+            }*/
             return fixedCommandList;
         }       
         rawCommandList.pop_front();

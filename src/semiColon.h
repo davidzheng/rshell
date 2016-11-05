@@ -11,8 +11,10 @@ class semiColon: public Connector{
         Base* leftChild;
         Base* rightChild;
     public:
+        // Constructors
         semiColon();
         semiColon(Base* leftChild, Base* rightChild);
+        // Member functions
         virtual bool runCommand();
         //void printCommand(); // For testing purposes only
 };

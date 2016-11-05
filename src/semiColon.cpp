@@ -7,17 +7,21 @@
 
 using namespace std;
 
+//Constructors
 semiColon::semiColon(){}
 
 semiColon::semiColon(Base* leftChild, Base* rightChild){
     this->leftChild = leftChild;
     this->rightChild = rightChild;
 }
+
 /*void semiColon::printCommand(){ // Testing purposes only
     this->rightChild->printCommand();
 }*/
+
+// Member functions
 bool semiColon::runCommand(){
-    leftChild->runCommand();
+    leftChild->runCommand(); // Calls runCommand on both children. Returns true if rightChild returns true
     if(rightChild->runCommand() == true){
         return true;
     }
