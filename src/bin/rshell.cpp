@@ -68,29 +68,35 @@ Base* makeTree(deque<char*> fixedCommandList){
             strcpy(c_colonChar, colonChar.c_str());
             connectorsParsed.push_back(c_colonChar);
             commandWithSemi = true;
-        }        
-        Command* newCommand = new Command(tempToken); 
-        while(!fixedCommandList.empty() && !checkForConnector(fixedCommandList.front())){
-            if(commandWithSemi){
-                break;
-            }
-            tempToken = fixedCommandList.front();
-            if(checkForSemi(tempToken)){
-                string tempStr = string(tempToken);
-                tempStr = tempStr.substr(0, tempStr.size() - 1);
-                strcpy(tempToken, tempStr.c_str());
-                newCommand->addFlag(fixedCommandList.front());
-                fixedCommandList.pop_front();
-                string colonChar = ";";
-                char* c_colonChar = new char[2];
-                strcpy(c_colonChar, colonChar.c_str());
-                connectorsParsed.push_back(c_colonChar);
-                break;
-            }
-            newCommand->addFlag(fixedCommandList.front());
-            fixedCommandList.pop_front();   
         }
-        commandsParsed.push_back(newCommand); 
+        if(strcmp(tempToken, "exit") == 0){
+            Exit* newExit = new Exit();
+            commandsParsed.push_back(newExit);
+        }
+        else{        
+            Command* newCommand = new Command(tempToken); 
+            while(!fixedCommandList.empty() && !checkForConnector(fixedCommandList.front())){
+                if(commandWithSemi){
+                    break;
+                }
+                tempToken = fixedCommandList.front();
+                if(checkForSemi(tempToken)){
+                    string tempStr = string(tempToken);
+                    tempStr = tempStr.substr(0, tempStr.size() - 1);
+                    strcpy(tempToken, tempStr.c_str());
+                    newCommand->addFlag(fixedCommandList.front());
+                    fixedCommandList.pop_front();
+                    string colonChar = ";";
+                    char* c_colonChar = new char[2];
+                    strcpy(c_colonChar, colonChar.c_str());
+                    connectorsParsed.push_back(c_colonChar);
+                    break;
+                }
+                newCommand->addFlag(fixedCommandList.front());
+                fixedCommandList.pop_front();   
+            }
+            commandsParsed.push_back(newCommand); 
+        }
         if(!fixedCommandList.empty() && checkForConnector(fixedCommandList.front())){
             tempToken = fixedCommandList.front();
             fixedCommandList.pop_front();
