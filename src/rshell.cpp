@@ -191,8 +191,10 @@ int main(){
         string userCommands;
         getline(cin, userCommands);
         deque<char*> temp = parse(userCommands);
-        Base* cmdTree = makeTree(temp);
-        cmdTree->runCommand();
+        if(temp.size() > 0){
+            Base* cmdTree = makeTree(temp);
+            cmdTree->runCommand();
+        }
     }  
     return 0;
 }

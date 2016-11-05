@@ -1,0 +1,11 @@
+echo hello; echo world
+echo hello || echo world
+echo hello && echo world
+echo hello; echo world || echo bye
+echo hello; echo world && echo bye
+echo hello; echo world; echo bye
+ls -a || echo hi && echo bye
+-a || echo hi
+-a || echo hi || echo bye
+ls -a; echo hello && mkdir test || echo world; git status
+exit
