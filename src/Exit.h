@@ -2,11 +2,11 @@
 #define __EXIT_H__
 
 #include "Command.h"
+using namespace std;
 
 class Exit: public Command{
     public:
-    Exit();
-    virtual bool runCommand();
+        Exit();
+        bool runCommand();
 };
-
 #endif

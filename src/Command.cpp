@@ -40,9 +40,7 @@ bool Command::runCommand(){
     }
     argv[i] = NULL;
 
-
-    int pid = fork();
-    
+    int pid = fork();    
     if(pid == -1){ // Fork() returns -1 if it fails
         perror("problem with fork");
         exit(1);
