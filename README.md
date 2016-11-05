@@ -5,7 +5,7 @@ This is an implementation of a shell made using C++ and is based on design patte
 
 #Bugs
 Rshell currently does not support:
-    -cd
-    -input redirection
-    -output redirection
-    -piping
+* cd
+* input redirection
+* output redirection
+* piping
