@@ -61,7 +61,7 @@ bool Command::runCommand(){
             perror("problem with waitpid"); // A return value of negative 1 indicates that waitpid was unsuccessful
         }
         if(WIFEXITED(status)){ // Was child terminated normally?
-            if(WEXITSTATUS(status) != 0){ // If exit status is not zero, set the bool of runCommand to be false.
+            if(WEXITSTATUS(status) != 0){ // If exit status is not zero, set the bool of runCommand to be false.  
                 result = false;
             }
         }

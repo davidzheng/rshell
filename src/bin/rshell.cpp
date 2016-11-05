@@ -109,6 +109,7 @@ Base* makeTree(deque<char*> fixedCommandList){
         Base* rightBase = commandsParsed.at(0);
         commandsParsed.pop_front();
         char* connectorChar = connectorsParsed.at(0);
+        connectorsParsed.pop_front();
         if(strchr(connectorChar, ';') != NULL){
             semiColon* newSemicolon = new semiColon(leftBase, rightBase); 
             commandTree.push_back(newSemicolon);
@@ -117,7 +118,7 @@ Base* makeTree(deque<char*> fixedCommandList){
             AND* newAnd = new AND(leftBase, rightBase);
             commandTree.push_back(newAnd);
         }
-        else{
+        else if(strstr(connectorChar, "||") != NULL){
             OR* newOr = new OR(leftBase, rightBase);
             commandTree.push_back(newOr);
         } 
@@ -128,15 +129,15 @@ Base* makeTree(deque<char*> fixedCommandList){
             commandTree.pop_front();
             char* connectChar = connectorsParsed.at(0);
             connectorsParsed.pop_front();
-            if(strchr(connectorChar, ';') != NULL){
+            if(strchr(connectChar, ';') != NULL){ 
                 semiColon* newSemiColon = new semiColon(lBase, rBase); 
                 commandTree.push_back(newSemiColon);
             }
-            else if(strstr(connectorChar, "&&") != NULL){
+            else if(strstr(connectChar, "&&") != NULL){ 
                 AND* newAND = new AND(lBase, rBase);
                 commandTree.push_back(newAND);
             }
-            else{
+            else if(strstr(connectChar, "||") != NULL){ 
                 OR* newOR = new OR(lBase, rBase);
                 commandTree.push_back(newOR);
             }
