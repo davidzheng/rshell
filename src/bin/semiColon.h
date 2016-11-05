@@ -14,6 +14,7 @@ class semiColon: public Connector{
         semiColon();
         semiColon(Base* leftChild, Base* rightChild);
         virtual bool runCommand();
+        //void printCommand(); // For testing purposes only
 };
 
 #endif

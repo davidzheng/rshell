@@ -1,3 +1,6 @@
+#ifndef __CONNECTOR_CPP__
+#define __CONNECTOR_CPP__
+
 #include <iostream>
 #include "Base.h"
 #include "Connector.h"
@@ -11,6 +14,7 @@ Connector::Connector(Base* leftChild, Base* rightChild){
     this->rightChild = rightChild;
 }
 
-void Connector::printCommand(){
+/*void Connector::printCommand(){ // Testing purposes only
     rightChild->printCommand();
-}
+}*/
+#endif
