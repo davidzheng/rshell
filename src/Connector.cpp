@@ -7,8 +7,10 @@
 
 using namespace std;
 
+// Constructors
 Connector::Connector(){}
 
+// Member functions
 Connector::Connector(Base* leftChild, Base* rightChild){
     this->leftChild = leftChild;
     this->rightChild = rightChild;
