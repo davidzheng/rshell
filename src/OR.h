@@ -11,8 +11,10 @@ class OR: public Connector{
         Base* leftChild;
         Base* rightChild;
     public:
+        // Connectors
         OR();
         OR(Base* leftChild, Base* rightChild);
+        // Member functions
         virtual bool runCommand();
 };
 

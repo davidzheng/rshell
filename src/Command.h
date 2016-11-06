@@ -10,13 +10,15 @@ class Command: public Base{
         deque<char*> commandFlags;
         char* commandName;
     public:
+        // Constructors
         Command();
         Command(char* cmdName);
         Command(deque<char*>cmdFlags);
         Command(char* cmdName, deque<char*>cmdFlags);
+        // Member functions
         virtual bool runCommand();
         void addFlag(char* commandFlag);
-        void printCommand();
-        void printFlags();
+//        void printCommand(); // For testing purposes only
+//        void printFlags();
 };
 #endif

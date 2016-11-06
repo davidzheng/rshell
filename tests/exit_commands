@@ -1,0 +1,6 @@
+exit 
+echo hello && exit
+echo hello || exit
+echo hello; echo world; exit
+echo hello #exit
+exit

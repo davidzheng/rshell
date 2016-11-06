@@ -1,9 +1,13 @@
+#ifndef __OR_CPP__
+#define __OR_CPP__
+
 #include <iostream>
 #include "Base.h"
 #include "OR.h"
 
 using namespace std;
 
+// Constructors
 OR::OR(){}
 
 OR::OR(Base* leftChild, Base* rightChild){
@@ -11,10 +15,10 @@ OR::OR(Base* leftChild, Base* rightChild){
     this->rightChild = rightChild;
 }
 
-
+// Member functions
 bool OR::runCommand(){
-    if(leftChild->runCommand() == false){
-	if(rightChild->runCommand() == true){
+    if(leftChild->runCommand() == false){ // Calls runCommand() on rightChild if leftChild returned false. Else return true.
+	    if(rightChild->runCommand() == true){
             return true;
         }
         else{
@@ -23,4 +27,5 @@ bool OR::runCommand(){
     }
     return true;
 }
-               
+
+#endif

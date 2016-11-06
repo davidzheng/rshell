@@ -10,8 +10,10 @@ class AND: public Connector{
         Base* leftChild;
         Base* rightChild;
     public:
+        // Constructors
         AND();
         AND(Base* leftChild, Base* rightChild);
+        // Member functions
         virtual bool runCommand();
 };
 

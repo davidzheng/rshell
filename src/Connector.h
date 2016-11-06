@@ -10,9 +10,12 @@ class Connector: public Base{
         Base* leftChild;
         Base* rightChild;
     public:
+        // Constructors
         Connector();
         Connector(Base* leftChild, Base* rightChild);
-        virtual bool runCommand() = 0;        
+        // Member functions
+        virtual bool runCommand() = 0;       
+        void printCommand();
 };
 
 #endif
