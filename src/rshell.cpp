@@ -52,6 +52,13 @@ bool checkForSemi(char* rawCommand){
     return false;
 }
 
+bool checkForPrecedence(char* rawCommand){
+    if(strchr(rawCommand, '(') != NULL){
+        return true;
+    }
+    return false;
+}
+
 Base* makeTree(deque<char*> fixedCommandList){
     deque<Command*> commandsParsed;
     deque<char*> connectorsParsed;
@@ -60,6 +67,8 @@ Base* makeTree(deque<char*> fixedCommandList){
         bool commandWithSemi = false; 
         char* tempToken = fixedCommandList.front();
         fixedCommandList.pop_front();
+        if(checkForPrecedence(tempToken)){
+
         if(checkForSemi(tempToken)){
             string tempStr = string(tempToken);
             tempStr = tempStr.substr(0, tempStr.size() - 1);
