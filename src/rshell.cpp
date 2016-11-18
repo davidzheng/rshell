@@ -13,6 +13,7 @@
 #include "OR.h"
 #include "semiColon.h"
 #include "Exit.h"
+#include "TEST.h"
 
 using namespace std;
 
@@ -73,29 +74,66 @@ Base* makeTree(deque<char*> fixedCommandList){
             Exit* newExit = new Exit();
             commandsParsed.push_back(newExit);
         }
-        else{        
-            Command* newCommand = new Command(tempToken); 
-            while(!fixedCommandList.empty() && !checkForConnector(fixedCommandList.front())){
-                if(commandWithSemi){
-                    break;
+        else{ 
+            if(strcmp(tempToken, "test") == 0 || strcmp(tempToken, "[") == 0){
+                TEST* newTest = new TEST();
+                if(strcmp(tempToken, "[") == 0){
+                    while(!fixedCommandList.empty() && !(strcmp(fixedCommandList.front(), "]") == 0)){ 
+                        newTest->addFlag(fixedCommandList.front());
+                        fixedCommandList.pop_front();
+                    }
+                    if(!fixedCommandList.empty()){
+                        fixedCommandList.pop_front();
+                    }
                 }
-                tempToken = fixedCommandList.front();
-                if(checkForSemi(tempToken)){
-                    string tempStr = string(tempToken);
-                    tempStr = tempStr.substr(0, tempStr.size() - 1);
-                    strcpy(tempToken, tempStr.c_str());
-                    newCommand->addFlag(fixedCommandList.front());
-                    fixedCommandList.pop_front();
-                    string colonChar = ";";
-                    char* c_colonChar = new char[2];
-                    strcpy(c_colonChar, colonChar.c_str());
-                    connectorsParsed.push_back(c_colonChar);
-                    break;
-                }
-                newCommand->addFlag(fixedCommandList.front());
-                fixedCommandList.pop_front();   
+                else{
+                    while(!fixedCommandList.empty() && !checkForConnector(fixedCommandList.front())){
+                        if(commandWithSemi){
+                            break;
+                        }
+                        tempToken = fixedCommandList.front();
+                        if(checkForSemi(tempToken)){
+                            string tempStr = string(tempToken);
+                            tempStr = tempStr.substr(0, tempStr.size() - 1);
+                            strcpy(tempToken, tempStr.c_str());
+                            newTest->addFlag(fixedCommandList.front());
+                            fixedCommandList.pop_front();
+                            string colonChar = ";";
+                            char* c_colonChar = new char[2];
+                            strcpy(c_colonChar, colonChar.c_str());
+                            connectorsParsed.push_back(c_colonChar);
+                            break;
+                        }
+                        newTest->addFlag(fixedCommandList.front());
+                        fixedCommandList.pop_front();
+                    }
+                } 
+                commandsParsed.push_back(newTest);
             }
-            commandsParsed.push_back(newCommand); 
+            else{     
+                Command* newCommand = new Command(tempToken); 
+                while(!fixedCommandList.empty() && !checkForConnector(fixedCommandList.front())){
+                    if(commandWithSemi){
+                        break;
+                    }
+                    tempToken = fixedCommandList.front();
+                    if(checkForSemi(tempToken)){
+                        string tempStr = string(tempToken);
+                        tempStr = tempStr.substr(0, tempStr.size() - 1);
+                        strcpy(tempToken, tempStr.c_str());
+                        newCommand->addFlag(fixedCommandList.front());
+                        fixedCommandList.pop_front();
+                        string colonChar = ";";
+                        char* c_colonChar = new char[2];
+                        strcpy(c_colonChar, colonChar.c_str());
+                        connectorsParsed.push_back(c_colonChar);
+                        break;
+                    }
+                    newCommand->addFlag(fixedCommandList.front());
+                    fixedCommandList.pop_front();   
+                }
+                commandsParsed.push_back(newCommand); 
+            }
         }
         if(!fixedCommandList.empty() && checkForConnector(fixedCommandList.front())){
             tempToken = fixedCommandList.front();
@@ -191,6 +229,9 @@ int main(){
         string userCommands;
         getline(cin, userCommands);
         deque<char*> temp = parse(userCommands);
+        /*for(int i = 0; i < temp.size(); ++i){
+            cout << temp.at(i) << endl;
+        }*/
         if(temp.size() > 0){
             Base* cmdTree = makeTree(temp);
             cmdTree->runCommand();
