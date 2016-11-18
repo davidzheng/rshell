@@ -22,14 +22,24 @@ bool TEST::runCommand(){ // -e -f -d
     char* flag;
     char* filePath;
     bool testResult = true;
-    for(int i = 0; i < commandFlags.size(); ++i){
+    /*for(int i = 0; i < commandFlags.size(); ++i){
         cout << commandFlags.at(i) << endl;
-    }
+    }*/
     if(commandFlags.size() == 2){ // Test inputs should be a flag(-e, -f, or -d) and a filepath
         flag = commandFlags.front(); // The front of commandFlags should be the flag
         commandFlags.pop_front(); // Removes the flag from the deque
         filePath = commandFlags.front(); // Sets filePath to the one stored in deque
         commandFlags.pop_front(); // Removes the flag from the deque
+    }
+    else if (commandFlags.size() == 1){
+        string defaultFlag = "-e";
+        char* c_defaultFlag = new char[3];
+        strcpy(c_defaultFlag, defaultFlag.c_str());
+        commandFlags.push_front(c_defaultFlag);
+        flag = commandFlags.front();
+        commandFlags.pop_front();
+        filePath = commandFlags.front();
+        commandFlags.pop_front();
     }
     else{ // Invalid input if the size of commandFlags is not 2
         perror("Invalid test inputs");
