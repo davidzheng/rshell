@@ -1,0 +1,12 @@
+test -e /Users
+test /Users
+[ -e /Users ]
+test -e /nonvalidpath
+test -e /nonvalidpath || echo file does not exist
+test -e /Users || echo file does not exist
+test -e /Users && echo file exists
+test -d /Users && echo is a directory
+[ -e /Users ] || echo a
+[ -e /Users ] && [ -d /Users]
+[ -f filename ] && echo does exist
+test -f filename || echo hello world
