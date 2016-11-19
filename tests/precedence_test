@@ -8,4 +8,6 @@
 echo BEGIN && (ls -a || echo NoPath) && echo END
 (echo Hello && exit) || echo NO
 (ls -a || mkdir temp) || (echo nothing && exit) 
+(test -d /Users || echo Not Directory) && (echo a || echo b)
+test -e /nonvalidpath || (echo a && echo b)
 exit
