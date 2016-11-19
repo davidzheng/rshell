@@ -1,0 +1,13 @@
+(echo Hello && echo World) || (echo A && echo B)
+(echo Hello || echo World) && (echo A || echo B)
+(echo Hello && echo World) && (echo A || echo B)
+(echo Hello || echo World) && (echo A && echo B)
+(echo Hello && echo World) && (echo A && echo B)
+(echo Hello && echo World) && (echo A && echo B) && (echo C && echo D)
+(echo Hello && echo World) && (echo A && echo B); (echo Hello2 && echo World2) && (echo A2 && echo B2)
+echo BEGIN && (ls -a || echo NoPath) && echo END
+(echo Hello && exit) || echo NO
+(ls -a || mkdir temp) || (echo nothing && exit) 
+(test -d /Users || echo Not Directory) && (echo a || echo b)
+test -e /nonvalidpath || (echo a && echo b)
+exit
