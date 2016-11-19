@@ -24,7 +24,7 @@ Or:
 	$(CC) $(CC_FLAGS) -c ./src/OR.cpp
 
 And:
-	$(CC) $(CC_FLAGS) -c ./src/And.cpp
+	$(CC) $(CC_FLAGS) -c ./src/AND.cpp
 
 clean:
 	rm -f *.o
