@@ -58,7 +58,7 @@ bool checkForPrecedence(char* rawCommand){
 }
 
 Base* makeTree(deque<char*> fixedCommandList){
-    deque<Command*> commandsParsed;
+    deque<Base*> commandsParsed;
     deque<char*> connectorsParsed;
     deque<Base*> commandTree;
     while(!fixedCommandList.empty()){
@@ -99,7 +99,7 @@ Base* makeTree(deque<char*> fixedCommandList){
                 cout << precedenceTree.at(i) << endl;
             }*/
             Base* tempConnector = makeTree(precedenceTree);
-            commandTree.push_back(tempConnector);
+            commandsParsed.push_back(tempConnector);
             if(precedenceSemi){
                 string colonChar = ";";
                 char* c_colonChar = new char[2];
@@ -132,6 +132,7 @@ Base* makeTree(deque<char*> fixedCommandList){
         }
         else{ 
             if(strcmp(tempToken, "test") == 0 || strcmp(tempToken, "[") == 0){
+                
                 TEST* newTest = new TEST();
                 if(strcmp(tempToken, "[") == 0){
                     while(!fixedCommandList.empty() && !(strcmp(fixedCommandList.front(), "]") == 0)){ 
