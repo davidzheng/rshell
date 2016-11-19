@@ -58,7 +58,7 @@ bool checkForPrecedence(char* rawCommand){
 }
 
 Base* makeTree(deque<char*> fixedCommandList){
-    deque<Command*> commandsParsed;
+    deque<Base*> commandsParsed;
     deque<char*> connectorsParsed;
     deque<Base*> commandTree;
     while(!fixedCommandList.empty()){
@@ -76,19 +76,37 @@ Base* makeTree(deque<char*> fixedCommandList){
                 fixedCommandList.pop_front();
                 precedenceTree.push_back(tempPrecedenceToken);
             }
+            bool precedenceSemi = false;
             if(!fixedCommandList.empty() && strchr(fixedCommandList.front(), ')') != NULL){
                 char* tempPrecedenceToken = fixedCommandList.front();
                 fixedCommandList.pop_front();
+                if(strchr(tempPrecedenceToken, ';') != NULL){
+                    
+                    string fixToken = string(tempPrecedenceToken);
+                    fixToken = fixToken.substr(0, fixToken.size() - 1);
+                    strcpy(tempPrecedenceToken, fixToken.c_str());
+                    
+                    precedenceSemi = true;
+                }
                 string tempPrecedenceString = string(tempPrecedenceToken);
+                
                 tempPrecedenceString = tempPrecedenceString.substr(0, tempPrecedenceString.size() - 1);
-                strcpy(tempPrecedenceToken, tempPrecedenceString.c_str());  
+                strcpy(tempPrecedenceToken, tempPrecedenceString.c_str()); 
+                
                 precedenceTree.push_back(tempPrecedenceToken);
             }
             /*for(int i = 0; i < precedenceTree.size(); ++i){
                 cout << precedenceTree.at(i) << endl;
             }*/
             Base* tempConnector = makeTree(precedenceTree);
-            commandTree.push_back(tempConnector);
+            commandsParsed.push_back(tempConnector);
+            if(precedenceSemi){
+                string colonChar = ";";
+                char* c_colonChar = new char[2];
+                strcpy(c_colonChar, colonChar.c_str());
+                connectorsParsed.push_back(c_colonChar);
+                precedenceSemi = false;
+            }
             /*for(int i = 0; i < commandsParsed.size(); ++i){
                 commandsParsed.at(i)->printCommand();
             }*/
@@ -114,6 +132,7 @@ Base* makeTree(deque<char*> fixedCommandList){
         }
         else{ 
             if(strcmp(tempToken, "test") == 0 || strcmp(tempToken, "[") == 0){
+                
                 TEST* newTest = new TEST();
                 if(strcmp(tempToken, "[") == 0){
                     while(!fixedCommandList.empty() && !(strcmp(fixedCommandList.front(), "]") == 0)){ 
