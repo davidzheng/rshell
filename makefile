@@ -25,8 +25,10 @@ Or:
 
 And:
 	$(CC) $(CC_FLAGS) -c ./src/AND.cpp
+
 Test:
 	$(CC) $(CC_FLAGS) -c ./src/TEST.cpp
+
 
 clean:
 	rm -f *.o
