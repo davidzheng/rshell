@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
+#include <string>
 #include "Base.h"
 #include "TEST.h"
 using namespace std;
