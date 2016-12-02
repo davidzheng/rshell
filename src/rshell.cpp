@@ -30,7 +30,14 @@ void printUserInfo(){
         perror("Unable to retrieve current host name.");
         return;
     }
-    cout << userName << "@" << hostName << "$ ";
+    cout << userName << "@" << hostName;
+    char* cwd = getenv("PWD");
+    if(cwd !=  NULL){
+        cout << ":" << cwd << "$ ";
+    }
+    else{
+        cout << "$ ";
+    }
     return;
 }
 

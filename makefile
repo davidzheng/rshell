@@ -1,9 +1,9 @@
 CC=g++
 CC_FLAGS=-Wall -Werror -ansi -pedantic
 
-all: Command Exit Connector Semicolon Or And Test	
+all: Command Exit Connector Semicolon Or And Test CD	
 	mkdir -p bin
-	$(CC) $(CC_FLAGS) ./src/rshell.cpp Command.o Exit.o Connector.o semiColon.o OR.o AND.o TEST.o -o ./bin/rshell
+	$(CC) $(CC_FLAGS) ./src/rshell.cpp Command.o Exit.o Connector.o semiColon.o OR.o AND.o TEST.o CD.o -o ./bin/rshell
 
 rshell:
 	$(CC) $(CC_FLAGS) -c ./src/rshell.cpp
@@ -25,8 +25,12 @@ Or:
 
 And:
 	$(CC) $(CC_FLAGS) -c ./src/AND.cpp
+
 Test:
 	$(CC) $(CC_FLAGS) -c ./src/TEST.cpp
+
+CD:
+	$(CC) $(CC_FLAGS) -c ./src/CD.cpp
 
 clean:
 	rm -f *.o

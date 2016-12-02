@@ -51,12 +51,13 @@ bool CD::runCommand(){
             perror("chdir to target unsuccessful");
         }
         else{ // chdir was successful
-            char* currentDirectory = getenv("PWD"); // Gets actual pwd 
-            if(setenv("PWD", currentDirectory, 1) == -1){ // Sets pwd to current directory and checks if successful
-                perror("setenv PWD unsuccessful");
-            }
-            if(setenv("OLDPWD", prevDirectory, 1) == -1){ // Sets oldpwd to previous directory
+            char cwd[1024];
+            getcwd(cwd, sizeof(cwd)); // Gets new pwd of current directory 
+            if(setenv("OLDPWD", prevDirectory, 1) == -1){ // Sets oldpwd to previous directory and checks if successful
                 perror("setenv OLDPWD unsuccessful");
+            }
+            if(setenv("PWD", cwd, 1) == -1){ // Sets pwd to current directory and checks if successful
+                perror("setenv PWD unsucessful");
             }
         }
     }
