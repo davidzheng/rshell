@@ -14,6 +14,7 @@
 #include "semiColon.h"
 #include "Exit.h"
 #include "TEST.h"
+#include "CD.h"
 
 using namespace std;
 
@@ -29,7 +30,14 @@ void printUserInfo(){
         perror("Unable to retrieve current host name.");
         return;
     }
-    cout << userName << "@" << hostName << "$ ";
+    cout << userName << "@" << hostName;
+    char* cwd = getenv("PWD");
+    if(cwd !=  NULL){
+        cout << ":" << cwd << "$ ";
+    }
+    else{
+        cout << "$ ";
+    }
     return;
 }
 
@@ -132,7 +140,6 @@ Base* makeTree(deque<char*> fixedCommandList){
         }
         else{ 
             if(strcmp(tempToken, "test") == 0 || strcmp(tempToken, "[") == 0){
-                
                 TEST* newTest = new TEST();
                 if(strcmp(tempToken, "[") == 0){
                     while(!fixedCommandList.empty() && !(strcmp(fixedCommandList.front(), "]") == 0)){ 
@@ -167,6 +174,30 @@ Base* makeTree(deque<char*> fixedCommandList){
                 } 
                 commandsParsed.push_back(newTest);
             }
+            else if(strcmp(tempToken, "cd") == 0){
+                CD* newCD = new CD();
+                while(!fixedCommandList.empty() && !checkForConnector(fixedCommandList.front())){
+                    if(commandWithSemi){
+                        break;
+                    }
+                    tempToken = fixedCommandList.front();
+                    if(checkForSemi(tempToken)){
+                        string tempStr = string(tempToken);
+                        tempStr = tempStr.substr(0, tempStr.size() - 1);
+                        strcpy(tempToken, tempStr.c_str());
+                        newCD->addFlag(fixedCommandList.front());
+                        fixedCommandList.pop_front();
+                        string colonChar = ";";
+                        char* c_colonChar = new char[2];
+                        strcpy(c_colonChar, colonChar.c_str());
+                        connectorsParsed.push_back(c_colonChar);
+                        break;
+                    }
+                    newCD->addFlag(fixedCommandList.front());
+                    fixedCommandList.pop_front();
+                }
+                commandsParsed.push_back(newCD);
+            }    
             else{   
 
 
