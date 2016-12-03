@@ -1,0 +1,16 @@
+cd bin
+cd -
+cd 
+cd -
+cd .. && echo cd ..
+cd - && test
+cd bin && echo changed directory to bin
+cd - || echo did not change directory to previous
+cd bin; echo hello world
+cd -; cd 
+(cd - && echo hello) || echo bye
+cd .. && (echo hello; echo world)
+cd # some comment
+
+
+
